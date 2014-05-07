@@ -577,6 +577,9 @@ sed -i 's/## host_ports=localhost:2181/host_ports=cdh-master:2181/' /etc/hue/con
 # start the service
 service hue start
 
+# autostart at boot
+chkconfig hue on
+
 ############# print useful informations ################
 # print a recap of useful informations about the cluster
 #-------------------------------------------------------
