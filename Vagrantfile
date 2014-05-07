@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 # Configuration parameters
 managerRam = 2048                     # Ram in MB for the Cludera Manager Node
 nodeRam = 2048                        # Ram in MB for each DataNode
-nodeCount = 2                         # Number of DataNodes to create
+nodeCount = 3                         # Number of DataNodes to create
 privateNetworkIp = "10.10.50.5"       # Starting IP range for the private network between nodes
 secondaryStorage = 80                 # Size in GB for the secondary virtual HDD
 
