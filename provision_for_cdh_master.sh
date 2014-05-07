@@ -76,9 +76,6 @@ mysql -u root -pp@ssw0rd -e "grant all on hmon.* TO 'hmon'@'%' IDENTIFIED BY 'p@
 /sbin/chkconfig mysqld on
 /sbin/chkconfig --list mysqld
 
-# configure the metaatore
-/usr/lib/hive/bin/
-
 ################## install zookeeper server   ####################
 # install zookeper as standalone server BEFORE installing cloudera
 #-----------------------------------------------------------------
@@ -99,7 +96,7 @@ chkconfig zookeeper-server on
 #-----------------------------------------------------------------
 # ref http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Installation-Guide/cdh5ig_cdh5_install.html?scroll=topic_4_4_4_unique_1
 yum clean all
-yum install -y hadoop-yarn-resourcemanager hadoop-hdfs-namenode hadoop-mapreduce-historyserver hadoop-yarn-proxyserver hadoop-lzo hadoop-yarn-nodemanager
+yum install -y hadoop-yarn-resourcemanager hadoop-hdfs-namenode hadoop-hdfs-datanode hadoop-mapreduce-historyserver hadoop-yarn-proxyserver hadoop-lzo hadoop-yarn-nodemanager
 
 
 ################## setup configuration files   ##############
@@ -469,7 +466,7 @@ mysql -u oozie -pp@ssw0rd -e "USE oozie; SHOW TABLES;"
 
 # enable oozie web console
 cd tmp/
-wget http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
+wget -q http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
 unzip ext-2.2.zip -d /var/lib/oozie
 rm -f ext-2.2.zip
 
@@ -477,8 +474,6 @@ rm -f ext-2.2.zip
 sudo -u hdfs hadoop fs -mkdir -p /user/oozie/deployments
 sudo -u hdfs hadoop fs -chown -R oozie:oozie /user/oozie
 sudo oozie-setup sharelib create -fs  hdfs://cdh-master:8020 -locallib /usr/lib/oozie/oozie-sharelib-yarn.tar.gz
-
-/etc/oozie/conf.vagrant/oozie-env.sh
 
 sed -i 's/export OOZIE_CONFIG=\/etc\/oozie\/conf/export OOZIE_CONFIG=\/etc\/oozie\/conf.vagrant/' /etc/oozie/conf.vagrant/oozie-env.sh
 
@@ -506,7 +501,10 @@ sed -i "/templeton.python/{n; s/>.*\(<\/value>\)/>\/usr\/bin\/python\1/}"  /usr/
 sed -i "/templeton.hcat/{n; s/>.*\(<\/value>\)/>\/usr\/lib\/hive-hcatalog\/bin\/hcat.py\1/}"  /usr/lib/hive-hcatalog/etc/webhcat/webhcat-default.xml
 
 # start the service
-# service hive-webhcat-server start
+service hive-webhcat-server start
+
+# autostart at boot
+chkconfig hive-webhcat-server on
 
 ## hue installation and configuration   ##
 # configure and start hue web server
@@ -528,9 +526,9 @@ mysql -u root -pp@ssw0rd -e "grant all privileges on hue.* to 'hue'@'localhost';
 
 # get a copy from a fresh hue.ini
 # since for some reason the one provided in conf.empty won't work properly
-tm /etc/hue/conf.vagrant/hue.ini
+rm /etc/hue/conf.vagrant/hue.ini
 cd /etc/hue/conf.vagrant
-wget https://raw.githubusercontent.com/cloudera/hue/master/desktop/conf.dist/hue.ini
+wget -q https://raw.githubusercontent.com/cloudera/hue/master/desktop/conf.dist/hue.ini
 
 #hue.ini
 
@@ -602,7 +600,7 @@ echo "  Datanode:     http://($PUBLIC_IP):50075"
 echo "  HBase:        http://($PUBLIC_IP):60010"
 echo "  WebHDFS:      http://($PUBLIC_IP):50070"
 echo "  Oozie:        http://($PUBLIC_IP):11000"
-echo "  WebHCat:      http://($PUBLIC_IP):50111"
+echo "  WebHCat:      http://( $PUBLIC_IP):50111"
 echo "  Hue:          http://($PUBLIC_IP):8888"
 echo ""
 echo "-----------------------------------------------------------------------------------------"
