@@ -105,7 +105,28 @@ sed -i '/yarn.nodemanager.local-dirs/{n; s/>.*\(<\/value>\)/>file:\/\/\/dfs\/yar
 sed -i '/yarn.nodemanager.log-dirs/{n; s/>.*\(<\/value>\)/>file:\/\/\/dfs\/yarn\/logs\/$\{user.name\}\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
 sed -i '/yarn.nodemanager.remote-app-log-dir/{n; s/>.*\(<\/value>\)/>hdfs:\/\/var\/log\/hadoop-yarn\/apps\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
 
+# TODO - where resourcemanager goes to another machine, fix the hostname
 sed -i '$d' /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.resource-tracker.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8031</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8032</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.scheduler.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8030</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.admin.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8033</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.webapp.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8088</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '    <name>yarn.resourcemanager.hostname</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
