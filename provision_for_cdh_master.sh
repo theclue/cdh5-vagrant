@@ -223,7 +223,28 @@ sed -i '/yarn.nodemanager.local-dirs/{n; s/>.*\(<\/value>\)/>file:\/\/\/dfs\/yar
 sed -i '/yarn.nodemanager.log-dirs/{n; s/>.*\(<\/value>\)/>file:\/\/\/dfs\/yarn\/logs\/$\{user.name\}\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
 sed -i '/yarn.nodemanager.remote-app-log-dir/{n; s/>.*\(<\/value>\)/>hdfs:\/\/var\/log\/hadoop-yarn\/apps\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
 
+# TODO - where resourcemanager goes to another machine, fix the hostname
 sed -i '$d' /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.resource-tracker.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8031</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8032</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.scheduler.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8030</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.admin.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8033</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <name>yarn.resourcemanager.webapp.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>cdh-master:8088</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '    <name>yarn.resourcemanager.hostname</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
@@ -546,6 +567,9 @@ sed -i 's/## webhdfs_url=http:\/\/localhost:50070\/webhdfs\/v1/webhdfs_url=http:
 # yarn
 sed -i 's/## resourcemanager_host=localhost/resourcemanager_host=cdh-master/' /etc/hue/conf.vagrant/hue.ini
 sed -i 's/# history_server_api_url=http:\/\/localhost:19888/history_server_api_url=http:\/\/cdh-manager:19888/' /etc/hue/conf.vagrant/hue.ini
+sed -i 's/## resourcemanager_api_url=http:\/\/localhost:8088/resourcemanager_api_url=http:\/\/cdh-master:8088/' /etc/hue/conf.vagrant/hue.ini
+sed -i 's/## proxy_api_url=http:\/\/localhost:8088/proxy_api_url=http:\/\/cdh-master:8088/' /etc/hue/conf.vagrant/hue.ini
+
 
 # pig
 sed -i 's/## local_sample_dir=\/usr\/share\/hue\/apps\/pig\/examples/local_sample_dir=\/usr\/lib\/pig/' /etc/hue/conf.vagrant/hue.ini
@@ -594,14 +618,16 @@ echo "  Master Node FQHN: $(hostname) Public IP: ($PUBLIC_IP)"
 echo ""
 echo "  Please use the provided WebUIs for inspecting the services executing on this machine:"
 echo ""
-echo "  NodeManager:  http://$PUBLIC_IP:8042"
-echo "  Namenode:     http://$PUBLIC_IP:50070"
-echo "  Datanode:     http://$PUBLIC_IP:50075"
-echo "  HBase:        http://$PUBLIC_IP:60010"
-echo "  WebHDFS:      http://$PUBLIC_IP:50070"
-echo "  Oozie:        http://$PUBLIC_IP:11000"
-echo "  WebHCat:      http:// $PUBLIC_IP:50111"
-echo "  Hue:          http://$PUBLIC_IP:8888"
+echo "  NodeManager:    http://$PUBLIC_IP:8042"
+echo "  ResourceManager http://$PUBLIC_IP:8088"
+echo "  JobHistory      http://$PUBLIC_IP:19888"
+echo "  Namenode:       http://$PUBLIC_IP:50070"
+echo "  Datanode:       http://$PUBLIC_IP:50075"
+echo "  HBase:          http://$PUBLIC_IP:60010"
+echo "  WebHDFS:        http://$PUBLIC_IP:50070"
+echo "  Oozie:          http://$PUBLIC_IP:11000"
+echo "  WebHCat:        http://$PUBLIC_IP:50111"
+echo "  Hue:            http://$PUBLIC_IP:8888"
 echo ""
 echo "-----------------------------------------------------------------------------------------"
 echo ""
