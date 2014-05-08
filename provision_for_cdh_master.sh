@@ -210,7 +210,7 @@ echo '    <value>cdh-master:10020</value>' >> /etc/hadoop/conf.vagrant/mapred-si
 echo '  </property>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
 echo '  <property>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
 echo '    <name>mapreduce.jobhistory.webapp.address</name>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
-echo '    <value>cdh-master:19888</value>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
+echo '    <value>0.0.0.0:19888</value>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
 echo '  </property>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
 echo '  <property>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
 echo '    <name>yarn.app.mapreduce.am.staging-dir</name>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
@@ -243,7 +243,7 @@ echo '    <value>cdh-master:8033</value>' >> /etc/hadoop/conf.vagrant/yarn-site.
 echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '    <name>yarn.resourcemanager.webapp.address</name>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
-echo '    <value>cdh-master:8088</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
+echo '    <value>0.0.0.0:8088</value>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '  </property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '' >> /etc/hadoop/conf.vagrant/yarn-site.xml
 echo '  <property>' >> /etc/hadoop/conf.vagrant/yarn-site.xml
