@@ -36,6 +36,7 @@ The following services are included in the cluster on the master or the slave no
 * Hue (master)                - http://PUBLIC_IP:8888
 
 To get the PUBLIC_IP log in on the master node via SSH and issue the following command:
+
   ifconfig eth1 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'
   
 Configure and boot up the cluster
