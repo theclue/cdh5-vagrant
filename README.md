@@ -23,19 +23,19 @@ Services included in the cluster
 The following services are included in the cluster on the master or the slave nodes (or both, eventually). Some of them have a WebUI interface. Please note that not every service is configured to automatically start at boot time.
 
 * ZooKeeper (master)
-* NodeManager (master, slave) - http://<PUBLIC_IP>:8042
-* ResourceManager (master)    - http://<PUBLIC_IP>:8088
-* JobHistory (master)         - http://<PUBLIC_IP>:19888
-* Namenode (master)           - http://<PUBLIC_IP>:50070
-* Datanode (master, slave)    - http://<PUBLIC_IP>:50075
-* HBase (master)              - http://<PUBLIC_IP>:60010
+* NodeManager (master, slave) - http://PUBLIC_IP:8042
+* ResourceManager (master)    - http://PUBLIC_IP:8088
+* JobHistory (master)         - http://PUBLIC_IP:19888
+* Namenode (master)           - http://PUBLIC_IP:50070
+* Datanode (master, slave)    - http://PUBLIC_IP:50075
+* HBase (master)              - http://PUBLIC_IP:60010
 * HBase Region Server (slave)
-* WebHDFS (master)            - http://<PUBLIC_IP>:50070
-* Oozie (master)              - http://<PUBLIC_IP>:11000
-* WebHCat (master)            - http://<PUBLIC_IP>:50111
-* Hue (master)                - http://<PUBLIC_IP>:8888
+* WebHDFS (master)            - http://PUBLIC_IP:50070
+* Oozie (master)              - http://PUBLIC_IP:11000
+* WebHCat (master)            - http://PUBLIC_IP:50111
+* Hue (master)                - http://PUBLIC_IP:8888
 
-To get the <PUBLIC_IP> log in on the master node via SSH and issue the following command:
+To get the PUBLIC_IP log in on the master node via SSH and issue the following command:
   ifconfig eth1 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'
   
 Configure and boot up the cluster
