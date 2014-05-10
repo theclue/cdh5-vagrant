@@ -183,3 +183,18 @@ service hbase-regionserver start
 
 # autostart services
 chkconfig hbase-regionserver on
+
+### flume agents installation  ###
+# configure and start flume agents
+#---------------------------------
+# ref http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Installation-Guide/cdh5ig_flume_package_install.html
+yum install -y flume-ng flume-ng-agent flume-ng-doc
+
+cp -r /etc/flume-ng/conf.empty /etc/flume-ng/conf.vagrant
+
+alternatives --verbose --install /etc/flume-ng/conf flume-ng-conf /etc/flume-ng/conf.vagrant 50
+alternatives --set flume-ng-conf /etc/flume-ng/conf.vagrant
+
+# copy the template file to effective configuration properties file; it must be edited then!
+rm -f /etc/flume-ng/conf.vagrant/flume.conf
+cp /etc/flume-ng/conf.vagrant/flume-conf.properties.template /etc/flume-ng/conf.vagrant/flume.conf

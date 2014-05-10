@@ -527,6 +527,21 @@ service hive-webhcat-server start
 # autostart at boot
 chkconfig hive-webhcat-server on
 
+### flume agents installation  ###
+# configure and start flume agents
+#---------------------------------
+# ref http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Installation-Guide/cdh5ig_flume_package_install.html
+yum install -y flume-ng flume-ng-agent flume-ng-doc
+
+cp -r /etc/flume-ng/conf.empty /etc/flume-ng/conf.vagrant
+
+alternatives --verbose --install /etc/flume-ng/conf flume-ng-conf /etc/flume-ng/conf.vagrant 50
+alternatives --set flume-ng-conf /etc/flume-ng/conf.vagrant
+
+# copy the template file to effective configuration properties file; it must be edited then!
+rm -f /etc/flume-ng/conf.vagrant/flume.conf
+cp /etc/flume-ng/conf.vagrant/flume-conf.properties.template /etc/flume-ng/conf.vagrant/flume.conf
+
 ## hue installation and configuration   ##
 # configure and start hue web server
 #-----------------------------------------
@@ -643,7 +658,8 @@ echo "  7. HBase Thrift     (*)"
 echo "  8. Hive Metastore   (*)"
 echo "  9. HiveServer2      (*)"
 echo "  10. Oozie           (*)"
-echo "  11. WebHCat         (*)"
+echo "  11. Flume"
+echo "  11. WebHCat"
 echo "  12. Hue             (*)"
 echo ""
 echo "  (*) configured to start at boot time"
