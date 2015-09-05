@@ -15,7 +15,7 @@ The provisioned cluster has the following features:
 * A configurable number of **slave** datanodes with share a private network with the master. For better isolation, these nodes are not available on the LAN
 * Metadata is stored on a MySql instance running on the master node. This is true for every Cloudera service that may need to store data on a RDBMS (Hive, Hue, Oozie). Users and databases are create automatically (you can find credentials on the master node provisioning shell script, if you need them).
 * For better management, Cloudera Services that have a Web UI are fully accessible trough the LAN, but you need to shell on the master node - which also acts as client - to launch YARN jobs. Or you can use Hue, if you prefer.
-* Oracle JDK 1.7 is automatically downloaded and installed and replaces the weird (and sadly unsupported) OpenJDK library.
+* Oracle JDK 1.8 is automatically downloaded and installed and replaces the weird (and sadly unsupported) OpenJDK library.
 * As usual for vagrant boxes, SSH ports for each node are forwarded to host machine starting from port 2222. Please refer to the official vagrant documentation if you need further information.
 
 Services included in the cluster
