@@ -5,18 +5,18 @@ sed -i 's/exclude=kernel/#exclude=kernel/g' /etc/yum.conf
 
 yum update -y
 
-wget -q --no-check-certificate --no-cookies - --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.rpm" -O /tmp/jdk-7u51-linux-x64.rpm
-rpm -Uvh /tmp/jdk-7u51-linux-x64.rpm
+wget -q --no-check-certificate --no-cookies - --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.rpm" -O /tmp/jdk-8u60-linux-x64.rpm
+rpm -Uvh /tmp/jdk-8u60-linux-x64.rpm
 
 # configure it on the system using the alternatives command. This is in order to tell the system what are the default commands for JAVA
-alternatives --install /usr/bin/java java /usr/java/jdk1.7.0_51/jre/bin/java 20000
-alternatives --install /usr/bin/jar jar /usr/java/jdk1.7.0_51/bin/jar 20000
-alternatives --install /usr/bin/javac javac /usr/java/jdk1.7.0_51/bin/javac 20000
-alternatives --install /usr/bin/javaws javaws /usr/java/jdk1.7.0_51/jre/bin/javaws 20000
-alternatives --set java /usr/java/jdk1.7.0_51/jre/bin/java
-alternatives --set javaws /usr/java/jdk1.7.0_51/jre/bin/javaws
-alternatives --set javac /usr/java/jdk1.7.0_51/bin/javac
-alternatives --set jar /usr/java/jdk1.7.0_51/bin/jar
+alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_60/jre/bin/java 20000
+alternatives --install /usr/bin/jar jar /usr/java/jdk1.8.0_60/bin/jar 20000
+alternatives --install /usr/bin/javac javac /usr/java/jdk1.8.0_60/bin/javac 20000
+alternatives --install /usr/bin/javaws javaws /usr/java/jdk1.8.0_60/jre/bin/javaws 20000
+alternatives --set java /usr/java/jdk1.8.0_60/jre/bin/java
+alternatives --set javaws /usr/java/jdk1.8.0_60/jre/bin/javaws
+alternatives --set javac /usr/java/jdk1.8.0_60/bin/javac
+alternatives --set jar /usr/java/jdk1.8.0_60/bin/jar
 
 # list version
 ls -lA /etc/alternatives/ | grep java
@@ -25,7 +25,7 @@ javac -version
 
 echo '' >> /etc/profile
 echo '# set JAVAHOME' >> /etc/profile
-echo 'export JAVA_HOME=/usr/java/jdk1.7.0_51' >> /etc/profile
+echo 'export JAVA_HOME=/usr/java/jdk1.8.0_60' >> /etc/profile
 echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 source /etc/profile
 
