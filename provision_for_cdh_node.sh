@@ -29,7 +29,7 @@ echo 'export JAVA_HOME=/usr/java/jdk1.8.0_60' >> /etc/profile
 echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 source /etc/profile
 
-rm -f /tmp/jdk-7u51-linux-x64.rpm
+rm -f /tmp/jdk-8u60-linux-x64.rpm
 
 ################## add cdh yum repository   ####################
 cd /etc/yum.repos.d/
