@@ -103,7 +103,7 @@ echo '</configuration>' >> /etc/hadoop/conf.vagrant/mapred-site.xml
 # yarn-site.xml
 sed -i '/yarn.nodemanager.local-dirs/{n; s/>.*\(<\/value>\)/>file:\/\/\/dfs\/yarn\/local\/$\{user.name\}\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
 sed -i '/yarn.nodemanager.log-dirs/{n; s/>.*\(<\/value>\)/>file:\/\/\/dfs\/yarn\/logs\/$\{user.name\}\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
-sed -i '/yarn.nodemanager.remote-app-log-dir/{n; s/>.*\(<\/value>\)/>hdfs:\/\/var\/log\/hadoop-yarn\/apps\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
+sed -i '/yarn.nodemanager.remote-app-log-dir/{n; s/>.*\(<\/value>\)/>hdfs:\/\/cdh-master:8020\/var\/log\/hadoop-yarn\/apps\1/}' /etc/hadoop/conf.vagrant/yarn-site.xml
 
 # TODO - where resourcemanager goes to another machine, fix the hostname
 sed -i '$d' /etc/hadoop/conf.vagrant/yarn-site.xml
